@@ -2,21 +2,20 @@ import React, {useState} from 'react';
 import {View, StyleSheet, TouchableHighlight} from 'react-native';
 
 function DrawArea() {
-  const [drawing, setDrawing] = useState(false);
-
+  const [touchCoordinates, setTouchCoordinates] = useState([]);
+  var drawTime;
   function handleDraw(evt) {
-    setDrawing(true);
-    if (drawing) {
-      setInterval(() => {
-        console.log(`x coord = ${evt.nativeEvent.locationX}`);
-        console.log(`y coord = ${evt.nativeEvent.locationY}`);
-      }, 1000);
-    } else {
-      clearInterval();
-    }
+    drawTime = setInterval(() => {
+      var tempCoordinates = [];
+      tempCoordinates.push({
+        x: evt.nativeEvent.locationX,
+        y: evt.nativeEvent.locationY,
+      });
+      console.log(evt.nativeEvent.locationX);
+    }, 100);
   }
   function handleOut() {
-    setDrawing(false);
+    clearInterval(drawTime);
   }
 
   return (
